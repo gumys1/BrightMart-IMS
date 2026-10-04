@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django-cors-headers',
+    'corsheaders',
 
     # Third-Party Packages
     'corsheaders',
@@ -80,8 +82,8 @@ SPECTACULAR_SETTINGS = {
 }
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -93,6 +95,11 @@ MIDDLEWARE = [
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_HEADERS = ['*']
 CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOWED_ORIGINS = [
+    "https://your-frontend-service.onrender.com",  # Your live Render frontend URL
+    "http://localhost:5173",                       # Vite local dev server
+    "http://localhost:3000",                       # CRA local dev server
+]
 
 ROOT_URLCONF = 'brightmart.urls'
 
