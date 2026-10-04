@@ -1,0 +1,12 @@
+Django==6.1.1
+django-cors-headers==4.9.0
+django-environ==0.14.0
+djangorestframework==3.18.1
+djangorestframework-simplejwt==5.5.1
+drf-spectacular==0.30.0
+gunicorn==23.0.0
+mysqlclient==2.3.0
+asgiref==3.12.1
+sqlparse==0.6.0
+python-dateutil==2.9.0.post0
+tzdata==2026.4

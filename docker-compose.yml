@@ -1,0 +1,66 @@
+services:
+  db:
+    image: mariadb:11
+    env_file:
+      - ./.env
+    environment:
+      MYSQL_DATABASE: brightmart_db
+      MYSQL_USER: brightmart
+      MYSQL_PASSWORD: admin12345
+      MYSQL_ROOT_PASSWORD: admin12345
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mariadb-admin ping -h localhost -u root -padmin12345 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+    networks:
+      - brightmart-net
+
+  inventory-service:
+    build:
+      context: ./inventory-service
+    env_file:
+      - ./.env
+    environment:
+      DATABASE_URL: ${DB_ENGINE}://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}
+    depends_on:
+      db:
+        condition: service_healthy
+    expose:
+      - "8000"
+    networks:
+      - brightmart-net
+
+  frontend:
+    build:
+      context: ./frontend
+    environment:
+      - VITE_API_BASE_URL=http://localhost/api
+    depends_on:
+      - inventory-service
+    expose:
+      - "80"
+    networks:
+      - brightmart-net
+
+  gateway:
+    build:
+      context: ./gateway
+    depends_on:
+      - inventory-service
+      - frontend
+    ports:
+      - "${PORT:-80}:80"
+    networks:
+      - brightmart-net
+
+volumes:
+  mysql_data:
+
+networks:
+  brightmart-net:
+    name: brightmart-net
+    driver: bridge
