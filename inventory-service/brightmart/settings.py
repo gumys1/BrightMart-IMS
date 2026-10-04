@@ -96,7 +96,7 @@ CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_HEADERS = ['*']
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
-    "https://your-frontend-service.onrender.com",  # Your live Render frontend URL
+    "https://dashboard.render.com/static/srv-db0fbqlg1s2s73draau0/deploys",  # Your live Render frontend URL
     "http://localhost:5173",                       # Vite local dev server
     "http://localhost:3000",                       # CRA local dev server
 ]
