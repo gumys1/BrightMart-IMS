@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const TRANSACTION_UPDATED_EVENT = "brightmart:transaction-updated";
+export const TRANSACTION_UPDATED_EVENT = "https://brightmart-inventory-service.onrender.com";
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost/api";
 
